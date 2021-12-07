@@ -92,4 +92,14 @@ dependencies {
     implementation(Socket.okhttp)
     implementation(Socket.okhttpLogging)
     implementation(Socket.gson)
+
+    //Retrofit
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.scalars)
+    implementation(Retrofit.gson)
+
+    //Retrofit
+    implementation(Room.room)
+    kapt(Room.roomCompiler)
+
 }

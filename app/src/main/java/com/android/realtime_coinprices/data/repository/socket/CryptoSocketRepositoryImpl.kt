@@ -1,15 +1,14 @@
-package com.android.realtime_coinprices.data.repository
+package com.android.realtime_coinprices.data.repository.socket
 
 import com.android.realtime_coinprices.data.SubscribeAction
 import com.android.realtime_coinprices.data.TickerResponse
 import com.android.realtime_coinprices.data.network.SocketService
-import com.tinder.scarlet.Event
 import com.tinder.scarlet.websocket.WebSocketEvent
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class CryptoRepositoryImpl(private val socketService: SocketService) : CryptoRepository {
+class CryptoSocketRepositoryImpl @Inject constructor(private val socketService: SocketService) : CryptoSocketRepository {
 
     override fun getCryptoPrices(): Flow<TickerResponse> = socketService.observeTicker()
 

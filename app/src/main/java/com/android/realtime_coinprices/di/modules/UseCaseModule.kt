@@ -1,7 +1,12 @@
 package com.android.realtime_coinprices.di.modules
 
 import com.android.realtime_coinprices.data.network.SocketService
-import com.android.realtime_coinprices.data.repository.CryptoRepositoryImpl
+import com.android.realtime_coinprices.data.repository.api.CryptoApiRepositoryImpl
+import com.android.realtime_coinprices.data.repository.local.CryptoSymbolLocalRepositoryImpl
+import com.android.realtime_coinprices.data.repository.socket.CryptoSocketRepositoryImpl
+import com.android.realtime_coinprices.domain.usecase.api.GetPairsUseCase
+import com.android.realtime_coinprices.domain.usecase.local.GetSymbolsFromDbUseCase
+import com.android.realtime_coinprices.domain.usecase.local.InsertSymbolsToDbUseCase
 import com.android.realtime_coinprices.domain.usecase.observeSocket.GetCurrentPriceUseCase
 import com.android.realtime_coinprices.domain.usecase.observeSocket.ObserveWebSocketUseCase
 import com.android.realtime_coinprices.domain.usecase.observeSocket.SubscribeUseCase
@@ -20,7 +25,7 @@ object UseCaseModule {
     @Singleton
     fun provideGetPriceUseCase(
         coroutineContextProvider: CoroutineContextProvider,
-        cryptoRepositoryImpl: CryptoRepositoryImpl,
+        cryptoRepositoryImpl: CryptoSocketRepositoryImpl,
     ) = GetCurrentPriceUseCase(coroutineContextProvider, cryptoRepositoryImpl)
 
 
@@ -28,18 +33,37 @@ object UseCaseModule {
     @Singleton
     fun provideObserveSocketUseCase(
         coroutineContextProvider: CoroutineContextProvider,
-        cryptoRepositoryImpl: CryptoRepositoryImpl,
+        cryptoRepositoryImpl: CryptoSocketRepositoryImpl,
     ) = ObserveWebSocketUseCase(coroutineContextProvider, cryptoRepositoryImpl)
 
     @Provides
     @Singleton
     fun provideSubscribeUseCase(
         coroutineContextProvider: CoroutineContextProvider,
-        cryptoRepositoryImpl: CryptoRepositoryImpl,
+        cryptoRepositoryImpl: CryptoSocketRepositoryImpl,
     ) = SubscribeUseCase(coroutineContextProvider, cryptoRepositoryImpl)
+
 
     @Provides
     @Singleton
-    fun provideCryptoRepository(socketService: SocketService) = CryptoRepositoryImpl(socketService)
+    fun provideCryptoApiUseCase(
+        coroutineContextProvider: CoroutineContextProvider,
+        cryptoApiRepositoryImpl: CryptoApiRepositoryImpl,
+    ) = GetPairsUseCase(coroutineContextProvider, cryptoApiRepositoryImpl)
+
+    @Provides
+    @Singleton
+    fun provideGetSymbolPairsUseCase(
+        coroutineContextProvider: CoroutineContextProvider,
+        symbolLocalRepositoryImpl: CryptoSymbolLocalRepositoryImpl,
+    ) = GetSymbolsFromDbUseCase(coroutineContextProvider, symbolLocalRepositoryImpl)
+
+    @Provides
+    @Singleton
+    fun provideInsertSymbolPairsUseCase(
+        coroutineContextProvider: CoroutineContextProvider,
+        symbolLocalRepositoryImpl: CryptoSymbolLocalRepositoryImpl,
+    ) = InsertSymbolsToDbUseCase(coroutineContextProvider, symbolLocalRepositoryImpl)
+
 
 }
