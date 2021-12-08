@@ -12,6 +12,3 @@ data class TickerRequest(
     @SerializedName("name") val name: String = "ticker",
     @SerializedName("product_ids") val productIds: List<String>
 )
-data class TickerResponse(
-    @SerializedName("price") val price: Double
-)

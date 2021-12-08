@@ -1,10 +1,12 @@
 package com.android.realtime_coinprices.di.modules
 
-import com.android.realtime_coinprices.data.local.dao.SymbolDao
+import com.android.realtime_coinprices.data.local.dao.CryptoPairDao
+import com.android.realtime_coinprices.data.local.dao.TickerDao
 import com.android.realtime_coinprices.data.network.ApiService
 import com.android.realtime_coinprices.data.network.SocketService
 import com.android.realtime_coinprices.data.repository.api.CryptoApiRepositoryImpl
-import com.android.realtime_coinprices.data.repository.local.CryptoSymbolLocalRepositoryImpl
+import com.android.realtime_coinprices.data.repository.local.CryptoPairLocalRepositoryImpl
+import com.android.realtime_coinprices.data.repository.local.ticker.TickerLocalRepositoryImpl
 import com.android.realtime_coinprices.data.repository.socket.CryptoSocketRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -27,6 +29,10 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideLocalRepository(symbolDao: SymbolDao) = CryptoSymbolLocalRepositoryImpl(symbolDao)
+    fun provideLocalRepository(cryptoPairDao: CryptoPairDao) = CryptoPairLocalRepositoryImpl(cryptoPairDao)
+
+    @Provides
+    @Singleton
+    fun provideTickerLocalRepository(tickerDao: TickerDao) = TickerLocalRepositoryImpl(tickerDao)
 
 }

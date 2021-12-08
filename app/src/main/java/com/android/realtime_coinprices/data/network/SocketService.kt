@@ -1,7 +1,7 @@
 package com.android.realtime_coinprices.data.network
 
 import com.android.realtime_coinprices.data.SubscribeAction
-import com.android.realtime_coinprices.data.TickerResponse
+import com.android.realtime_coinprices.data.repository.TickerResponse
 import com.tinder.scarlet.websocket.WebSocketEvent
 import com.tinder.scarlet.ws.Receive
 import com.tinder.scarlet.ws.Send

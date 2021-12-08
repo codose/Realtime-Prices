@@ -3,7 +3,8 @@ package com.android.realtime_coinprices.di.modules
 import android.content.Context
 import androidx.room.Room
 import com.android.realtime_coinprices.data.local.CryptoLocalDatabase
-import com.android.realtime_coinprices.data.local.dao.SymbolDao
+import com.android.realtime_coinprices.data.local.dao.CryptoPairDao
+import com.android.realtime_coinprices.data.local.dao.TickerDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,8 +25,14 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideSymbolDao(dataBase: CryptoLocalDatabase): SymbolDao {
-        return dataBase.symbolDao()
+    fun providePairsDao(dataBase: CryptoLocalDatabase): CryptoPairDao {
+        return dataBase.cryptoPairDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTickerDao(dataBase: CryptoLocalDatabase): TickerDao {
+        return dataBase.tickerDao()
     }
 
     companion object {

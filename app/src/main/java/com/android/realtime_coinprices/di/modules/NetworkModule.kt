@@ -33,7 +33,7 @@ import javax.inject.Singleton
 @Module
 object NetworkModule {
     private const val SOCKET_BASE_URL = "wss://ws-feed.exchange.coinbase.com"
-    private const val API_BASE_URL = "https://api.binance.com/api/v3/"
+    private const val API_BASE_URL = "https://api.exchange.coinbase.com/"
 
     @Singleton
     @Provides

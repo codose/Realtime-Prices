@@ -1,12 +1,14 @@
 package com.android.realtime_coinprices.di.modules
 
-import com.android.realtime_coinprices.data.network.SocketService
 import com.android.realtime_coinprices.data.repository.api.CryptoApiRepositoryImpl
-import com.android.realtime_coinprices.data.repository.local.CryptoSymbolLocalRepositoryImpl
+import com.android.realtime_coinprices.data.repository.local.CryptoPairLocalRepositoryImpl
+import com.android.realtime_coinprices.data.repository.local.ticker.TickerLocalRepositoryImpl
 import com.android.realtime_coinprices.data.repository.socket.CryptoSocketRepositoryImpl
 import com.android.realtime_coinprices.domain.usecase.api.GetPairsUseCase
-import com.android.realtime_coinprices.domain.usecase.local.GetSymbolsFromDbUseCase
-import com.android.realtime_coinprices.domain.usecase.local.InsertSymbolsToDbUseCase
+import com.android.realtime_coinprices.domain.usecase.local.GetPairsFromDbUseCase
+import com.android.realtime_coinprices.domain.usecase.local.GetTickersFromDbUseCase
+import com.android.realtime_coinprices.domain.usecase.local.InsertPairsToDbUseCase
+import com.android.realtime_coinprices.domain.usecase.local.InsertTickersToDbUseCase
 import com.android.realtime_coinprices.domain.usecase.observeSocket.GetCurrentPriceUseCase
 import com.android.realtime_coinprices.domain.usecase.observeSocket.ObserveWebSocketUseCase
 import com.android.realtime_coinprices.domain.usecase.observeSocket.SubscribeUseCase
@@ -20,7 +22,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
-
     @Provides
     @Singleton
     fun provideGetPriceUseCase(
@@ -43,7 +44,6 @@ object UseCaseModule {
         cryptoRepositoryImpl: CryptoSocketRepositoryImpl,
     ) = SubscribeUseCase(coroutineContextProvider, cryptoRepositoryImpl)
 
-
     @Provides
     @Singleton
     fun provideCryptoApiUseCase(
@@ -53,17 +53,29 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetSymbolPairsUseCase(
+    fun provideGetPairsUseCase(
         coroutineContextProvider: CoroutineContextProvider,
-        symbolLocalRepositoryImpl: CryptoSymbolLocalRepositoryImpl,
-    ) = GetSymbolsFromDbUseCase(coroutineContextProvider, symbolLocalRepositoryImpl)
+        symbolLocalRepositoryImpl: CryptoPairLocalRepositoryImpl,
+    ) = GetPairsFromDbUseCase(coroutineContextProvider, symbolLocalRepositoryImpl)
 
     @Provides
     @Singleton
-    fun provideInsertSymbolPairsUseCase(
+    fun provideInsertPairsUseCase(
         coroutineContextProvider: CoroutineContextProvider,
-        symbolLocalRepositoryImpl: CryptoSymbolLocalRepositoryImpl,
-    ) = InsertSymbolsToDbUseCase(coroutineContextProvider, symbolLocalRepositoryImpl)
+        symbolLocalRepositoryImpl: CryptoPairLocalRepositoryImpl,
+    ) = InsertPairsToDbUseCase(coroutineContextProvider, symbolLocalRepositoryImpl)
 
+    @Provides
+    @Singleton
+    fun provideGetTickersUseCase(
+        coroutineContextProvider: CoroutineContextProvider,
+        tickerLocalRepositoryImpl: TickerLocalRepositoryImpl
+    ) = GetTickersFromDbUseCase(coroutineContextProvider, tickerLocalRepositoryImpl)
 
+    @Provides
+    @Singleton
+    fun provideInsertTickersUseCase(
+        coroutineContextProvider: CoroutineContextProvider,
+        tickerLocalRepositoryImpl: TickerLocalRepositoryImpl
+    ) = InsertTickersToDbUseCase(coroutineContextProvider, tickerLocalRepositoryImpl)
 }

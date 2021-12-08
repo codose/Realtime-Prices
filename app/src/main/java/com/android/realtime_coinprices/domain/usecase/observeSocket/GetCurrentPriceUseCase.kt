@@ -1,7 +1,7 @@
 package com.android.realtime_coinprices.domain.usecase.observeSocket
 
 import com.android.realtime_coinprices.data.SubscribeAction
-import com.android.realtime_coinprices.data.TickerResponse
+import com.android.realtime_coinprices.data.repository.TickerResponse
 import com.android.realtime_coinprices.data.repository.socket.CryptoSocketRepositoryImpl
 import com.android.realtime_coinprices.domain.usecase.base.FlowUseCase
 import com.android.realtime_coinprices.util.CoroutineContextProvider
